@@ -1,0 +1,46 @@
+
+<form [formGroup]="form">
+  <!-- Otros campos del formulario -->
+
+  <mat-form-field>
+    <input matInput placeholder="Cedula" formControlName="cedula" maxlength="10">
+    <mat-error *ngIf="form.get('cedula').hasError('required')">
+      La cedula es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Nombres" formControlName="nombres">
+    <mat-error *ngIf="form.get('nombres').hasError('required')">
+      El nombre es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Apellidos" formControlName="apellidos">
+    <mat-error *ngIf="form.get('apellidos').hasError('required')">
+      El apellido es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput placeholder="Telefono" formControlName="telefono" maxlength="10">
+    <mat-error *ngIf="form.get('telefono').hasError('required')">
+      El telefono es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput placeholder="Cargo" formControlName="cargo">
+    <mat-error *ngIf="form.get('cargo').hasError('required')">
+      El cargo es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Otros elementos del formulario -->
+
+  <button mat-raised-button color="primary" (click)="operar()">Guardar</button>
+  <button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
+</form>

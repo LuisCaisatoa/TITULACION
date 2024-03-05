@@ -1,0 +1,92 @@
+<div>
+  <mat-form-field>
+      <input matInput placeholder="Codigo" [(ngModel)]="productoModel.codigo" maxlength="10" required>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" [(ngModel)]="productoModel.nombre" required>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="productoModel.medida.idMedida" placeholder="Escoga el pertrecho" required>
+      <mat-option *ngFor="let medida of medidasArray" [value]="medida.idMedida">
+        {{medida.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="productoModel.categoria.idCategoria" placeholder="Escoga la categoria" required>
+      <mat-option *ngFor="let categoria of categoriasArray" [value]="categoria.idCategoria" >
+        {{categoria.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <br />
+
+  <mat-form-field>
+    <input matInput placeholder="Stock" [(ngModel)]="productoModel.stock" (keypress)="validarInput($event)" maxlength="5" required>
+  </mat-form-field>
+
+
+
+
+  <br />
+
+  <div class="text-end">
+    <mat-checkbox class="example-margin" [(ngModel)]="productoModel.disponible">Disponible</mat-checkbox>
+  </div>
+
+
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
+
+
+<!-- <form [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Codigo" formControlName="codigo">
+    <mat-error *ngIf="form.get('codigo').hasError('required')">
+      El codigo es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="nombre">
+    <mat-error *ngIf="form.get('nombre').hasError('required')">
+      El nombre es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-select formControlName="idMedida" placeholder="Escoga el pertrecho" >
+      <mat-option *ngFor="let medida of medidasArray" [value]="medida.idMedida">
+        {{medida.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-select formControlName="idCategoria" placeholder="Escoga la categoria" >
+      <mat-option *ngFor="let categoria of categoriasArray" [value]="categoria.idCategoria">
+        {{categoria.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="operar()">Guardar</button>
+  <button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
+</form> -->
+

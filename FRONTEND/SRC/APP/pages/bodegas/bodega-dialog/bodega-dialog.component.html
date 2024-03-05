@@ -1,0 +1,39 @@
+<!-- <div>
+  <mat-form-field>
+      <input matInput placeholder="Nombre" [(ngModel)]="bodegaModel.nombre">
+  </mat-form-field>
+
+  <br />
+  <mat-form-field>
+      <input matInput placeholder="Ubicacion" [(ngModel)]="bodegaModel.ubicacion">
+  </mat-form-field>
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
+ -->
+
+ <form [formGroup]="form">
+  <!-- Otros campos del formulario -->
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="nombre">
+    <mat-error *ngIf="form.get('nombre').hasError('required')">
+      El nombre es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput placeholder="Ubicacion" formControlName="ubicacion">
+    <mat-error *ngIf="form.get('ubicacion').hasError('required')">
+      La ubicación es obligatoria
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Otros elementos del formulario -->
+
+  <button mat-raised-button color="primary" (click)="operar()">Guardar</button>
+  <button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
+</form>
+

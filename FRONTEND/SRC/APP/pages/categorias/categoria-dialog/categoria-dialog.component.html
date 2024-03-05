@@ -1,0 +1,24 @@
+<!-- <div>
+  <mat-form-field>
+      <input matInput placeholder="Nombre" [(ngModel)]="categoriaModel.nombre">
+  </mat-form-field>
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button> -->
+
+<form [formGroup]="form">
+  <!-- Otros campos del formulario -->
+
+  <mat-form-field>
+    <input matInput placeholder="Nombre" formControlName="nombre">
+    <mat-error *ngIf="form.get('nombre').hasError('required')">
+      El nombre es obligatorio
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Otros elementos del formulario -->
+
+  <button mat-raised-button color="primary" (click)="operar()">Guardar</button>
+  <button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
+</form>

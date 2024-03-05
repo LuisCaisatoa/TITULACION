@@ -1,0 +1,28 @@
+<div>
+
+  <!-- <mat-form-field>
+    <input matInput placeholder="id" [(ngModel)]="usuarioModel.id" type="hidden">
+  </mat-form-field> -->
+
+  <mat-form-field>
+    <input matInput placeholder="username" [(ngModel)]="usuarioModel.username">
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field>
+    <input type="password" matInput placeholder="password" [(ngModel)]="usuarioModel.password">
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="usuarioModel.roles" placeholder="Escoga el rol del usuario" >
+      <mat-option [value]="[{'id':1, 'name': 'ROLE_ADMIN'}]">ROLE_ADMIN</mat-option>
+      <mat-option [value]="[{'id':2, 'name': 'ROLE_USER'}]">ROLE_USER</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>

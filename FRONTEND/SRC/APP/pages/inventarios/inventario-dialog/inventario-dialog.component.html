@@ -1,0 +1,98 @@
+<div>
+
+  <mat-form-field>
+    <mat-label>Estado</mat-label>
+    <select matNativeControl required>
+      <option *ngIf="this.data != null" value="prestamo">Prestamo</option>
+      <option *ngIf="this.data == null" value="devolucion">Devolucion</option>
+    </select>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill" >
+    <mat-label>Fecha Desde</mat-label>
+    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="desde">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+    <mat-datepicker #desde></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill" >
+    <mat-label>Fecha Hasta</mat-label>
+    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="hasta">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+    <mat-datepicker #hasta></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <div *ngIf="inventarioModel.bodega.idBodega == null; else editaBodega">
+      <mat-select [(ngModel)]="inventarioModel.bodega.idBodega" placeholder="Escoga la bodega" >
+        <mat-option *ngFor="let bodega of bodegasArray" [value]="bodega.idBodega">
+          {{bodega.nombre}}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <ng-template #editaBodega>
+      <mat-select [(ngModel)]="inventarioModel.bodega.idBodega" placeholder="Bodega">
+        <mat-option *ngFor="let bodega of bodegasArray" [value]="bodega.idBodega">
+          {{bodega.nombre}}
+        </mat-option>
+      </mat-select>
+    </ng-template>
+  </mat-form-field>
+
+
+  <br />
+
+  <mat-form-field>
+    <div *ngIf="inventarioModel.producto.idProducto == null; else editaProducto">
+      <mat-select [(ngModel)]="inventarioModel.producto.idProducto" placeholder="Escoga el producto" >
+        <mat-option *ngFor="let producto of productosArray" [value]="producto.idProducto">
+          {{producto.nombre}}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <ng-template #editaProducto>
+      <mat-select [(ngModel)]="inventarioModel.producto.idProducto" placeholder="Producto">
+        <mat-option *ngFor="let producto of productosArray" [value]="producto.idProducto">
+          {{producto.nombre}}
+        </mat-option>
+      </mat-select>
+    </ng-template>
+  </mat-form-field>
+
+
+
+  <br />
+  <mat-form-field>
+    <input type="number" matInput placeholder="Stock" [(ngModel)]="inventarioModel.stock">
+  </mat-form-field>
+  <br />
+
+  <mat-form-field>
+    <input type="number" matInput placeholder="Stock Minimo" [(ngModel)]="inventarioModel.stockMinimo">
+  </mat-form-field>
+
+  <br />
+    <mat-form-field>
+      <mat-select [(ngModel)]="inventarioModel.tipoInventario" placeholder="Tipo Inventario" >
+        <mat-option value="Entrada">Entrada</mat-option>
+        <mat-option value="Salida">Salida</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <br />
+
+  <mat-form-field>
+    <input type="text" matInput placeholder="Asignado a" [(ngModel)]="inventarioModel.personaAsignada">
+  </mat-form-field>
+
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+<button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>

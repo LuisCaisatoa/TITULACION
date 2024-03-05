@@ -1,0 +1,125 @@
+
+<div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha Desde</mat-label>
+    <input matInput [matDatepicker]="pickerDesde" [(ngModel)]="prestamoModel.fechaDesde" (ngModelChange)="actualizarMinFechaHasta()">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="pickerDesde"></mat-datepicker-toggle>
+    <mat-datepicker #pickerDesde></mat-datepicker>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha Hasta</mat-label>
+    <input matInput [matDatepicker]="pickerHasta" [min]="prestamoModel.fechaDesde" [(ngModel)]="prestamoModel.fechaHasta">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="pickerHasta"></mat-datepicker-toggle>
+    <mat-datepicker #pickerHasta></mat-datepicker>
+  </mat-form-field>
+
+
+  <br />
+
+  <!-- <mat-form-field>
+    <mat-select [(ngModel)]="asignadoModel.idAsignado" placeholder="Escoge el asignado" required>
+      <mat-option *ngFor="let asignado of asignadoArray" [value]="asignado.idAsignado">
+        {{ asignado.nombres + ' ' + asignado.apellidos }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+
+
+  <mat-form-field>
+    <div *ngIf="prestamoModel.idPrestamo == undefined; else editaAsignado">
+      <mat-select [(ngModel)]="prestamoModel.asignado.idAsignado" placeholder="Escoga el asignado">
+        <mat-option *ngFor="let asignado of asignadoArray" [value]="asignado.idAsignado">
+          {{ asignado.nombres + ' ' + asignado.apellidos }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <ng-template #editaAsignado>
+      <mat-select [(ngModel)]="prestamoModel.asignado.idAsignado" placeholder="Asignado" [disabled]="true">
+        <mat-option *ngFor="let asignado of asignadoArray" [value]="asignado.idAsignado">
+          {{ asignado.nombres + ' ' + asignado.apellidos }}
+        </mat-option>
+      </mat-select>
+    </ng-template>
+  </mat-form-field>
+
+
+
+  <br />
+
+
+  <mat-form-field>
+    <div *ngIf="prestamoModel.producto.idProducto === undefined; else editaProducto">
+      <!-- Establece el atributo [disabled] en true para deshabilitar siempre el mat-select -->
+      <mat-select [(ngModel)]="prestamoModel.producto.idProducto" placeholder="Escoge el producto">
+        <mat-option *ngFor="let producto of productoArray" [value]="producto.idProducto" (click)="mostrarStockProducto(producto.idProducto)">
+          {{ producto.nombre }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <ng-template #editaProducto>
+      <!-- Mantén el atributo [disabled] en true para asegurarte de que no se pueda activar haciendo clic -->
+      <mat-select [(ngModel)]="prestamoModel.producto.idProducto" placeholder="Producto" [disabled]="isProductoDisabled">
+        <mat-option *ngFor="let producto of productoArray" [value]="producto.idProducto" (click)="mostrarStockProducto(producto.idProducto)">
+          {{ producto.nombre }}
+        </mat-option>
+      </mat-select>
+    </ng-template>
+  </mat-form-field>
+
+
+
+  <label *ngIf="this.data.idPrestamo == undefined">Stock: {{this.productoModel.stock}}</label>
+  <label *ngIf="this.data.idPrestamo > 0">Stock: {{this.prestamoModel.producto.stock}}</label>
+
+  <mat-form-field>
+    <input matInput placeholder="Cantidad" [(ngModel)]="prestamoModel.cantidad" (keypress)="validarInput($event)" maxlength="3" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <div *ngIf="this.data.idPrestamo == undefined">
+      <mat-select [(ngModel)]="prestamoModel.estado" placeholder="Escoga el estado">
+        <mat-option *ngIf="data.idPrestamo === undefined" value="EN PRESTAMO" selected>EN PRESTAMO</mat-option>
+      </mat-select>
+    </div>
+
+
+      <div *ngIf="data.idPrestamo > 0">
+        <mat-select (ngModelChange)="cambiarEstado($event)" [(ngModel)]="prestamoModel.estado" placeholder="Escoga el estado" [disabled]="isEstadoDisabled">
+          <mat-option value="EN PRESTAMO">EN PRESTAMO</mat-option>
+          <mat-option value="DEVUELTO">DEVUELTO</mat-option>
+        </mat-select>
+      </div>
+
+<br/>
+
+       <!-- Agrega este bloque para mostrar el textarea solo cuando el estado es DEVUELTO -->
+       <div *ngIf="prestamoModel.estado === 'DEVUELTO'">
+        <label for="observacion">Observacion:</label>
+        <textarea matInput placeholder="Observación" [(ngModel)]="prestamoModel.observacion" (click)="$event.stopPropagation()"></textarea>
+      </div>
+
+  </mat-form-field>
+
+
+
+  <br />
+
+  <div class="text-end">
+    <!-- <mat-checkbox class="example-margin" [(ngModel)]="productoModel.disponible">Disponible</mat-checkbox> -->
+    <label *ngIf="this.productoModel.stock > 0">Producto disponible</label>
+    <label *ngIf="this.productoModel.stock == 0">Producto no disponible</label>
+  </div>
+
+
+
+</div>
+<button mat-raised-button color="primary" (click)="operar()">Guardar</button>
+<button mat-raised-button color="accent" (click)="cerrar()">Cancelar</button>
